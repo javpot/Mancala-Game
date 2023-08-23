@@ -2,7 +2,7 @@ import tkinter as tk
 from Puit import Puit
 def event_puit(id):
     # ICI l'action!!!!
-    puits[id].bouton.configure(text="allo")
+    puits[id].bouton.configure(text="zafer")
     print(id, puits[id].label)
 
 def event_reset():
