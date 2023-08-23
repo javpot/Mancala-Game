@@ -7,7 +7,7 @@ def event_puit(id):
 
 def event_reset():
     # ICI le reset
-    print("Nouvelle partie!!!")
+    print("Nouvelle parti!!!")
 
 if __name__ == '__main__':
 
