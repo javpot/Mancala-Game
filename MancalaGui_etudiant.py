@@ -1,9 +1,25 @@
 import tkinter as tk
 from Puit import Puit
 def event_puit(id):
-    # ICI l'action!!!!
-    puits[id].bouton.configure(text="zafer")
-    print(id, puits[id].label)
+    
+    puitClicked = puits[id]
+    positionCurrentPuit = puits.index(puitClicked)
+   
+    
+    print(puitClicked)
+    for p in range (0, puitClicked.nbGraines + 1):
+        puitPresent = puits[positionCurrentPuit]
+        puitPresent.nbGraines += 1
+        positionCurrentPuit += 1
+        puitPresent.bouton.configure(text=puitPresent.nbGraines)
+       
+        
+        print(puitPresent.nbGraines)
+   
+    puitClicked.nbGraines = 0
+    puitClicked.bouton.configure(text=puitClicked.nbGraines)
+
+#   Manque quand on clique a un element proche de la fin du tableau il doit reloop a partir du debut
 
 def event_reset():
     # ICI le reset
