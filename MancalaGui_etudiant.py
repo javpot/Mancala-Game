@@ -1,5 +1,6 @@
 import tkinter as tk
 from Puit import Puit
+from MancalaGame import Mancala
 
 
 def event_puit(id):
