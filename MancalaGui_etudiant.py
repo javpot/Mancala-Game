@@ -6,30 +6,44 @@ from MancalaGame import Mancala
 def event_puit(id):
     puitClicked = puits[id]
     positionCurrentPuit = puits.index(puitClicked)
+    print(puits[id].label)
     if puitClicked.label in "ABCDEF":
-        for p in range(puitClicked.nbGraines + 1):
+        for p in range(0, puitClicked.nbGraines + 1):
             puitPresent = puits[positionCurrentPuit]
-            if positionCurrentPuit >= len(puits) - 1:
-                positionCurrentPuit = 0
+            # Gerer le 13
+            if positionCurrentPuit == 13:
                 puitPresent.nbGraines += 1
                 puitPresent.bouton.configure(text=puitPresent.nbGraines)
-            else:
+                positionCurrentPuit = 7
+            # Gerer le 0
+            elif positionCurrentPuit == 0:
+                puitPresent.nbGraines += 1
+                puitPresent.bouton.configure(text=puitPresent.nbGraines)
+                positionCurrentPuit = 8
+
+            # Gerer les positions a 1 a 7
+            elif positionCurrentPuit >= 1 and positionCurrentPuit <= 7:
+                puitPresent.nbGraines += 1
+                puitPresent.bouton.configure(text=puitPresent.nbGraines)
+                positionCurrentPuit -= 1
+
+            # Gerer les positions de 8 a 12
+            elif positionCurrentPuit >= 8 and positionCurrentPuit < 13:
                 puitPresent.nbGraines += 1
                 puitPresent.bouton.configure(text=puitPresent.nbGraines)
                 positionCurrentPuit += 1
-                print(
-                    "DB label, nbGraines: ",
-                    puits[positionCurrentPuit].label,
-                    ", ",
-                    puits[positionCurrentPuit].nbGraines,
-                )
-                print("DB positionCurrent: ", positionCurrentPuit)
         puitClicked.nbGraines = 0
         puitClicked.bouton.configure(text=puitClicked.nbGraines)
+        print(
+            "DB label, nbGraines: ",
+            puits[positionCurrentPuit].label,
+            ", ",
+            puits[positionCurrentPuit].nbGraines,
+        )
+        print("DB positionCurrent: ", positionCurrentPuit)
 
 
-# Probleme losrque la position atteint la fin (se fait ajouter x2 a la meme case)
-# Probleme lorsque sa loop (position)
+# Probleme lorsque sa loop (position) -> les prochaines graines se font ajouter sur la meme ligne(loop du cote joueur)
 
 
 def event_reset():
