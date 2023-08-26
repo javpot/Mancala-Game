@@ -43,12 +43,11 @@ def event_puit(id):
         print("DB positionCurrent: ", positionCurrentPuit)
 
 
-# Probleme lorsque sa loop (position) -> les prochaines graines se font ajouter sur la meme ligne(loop du cote joueur)
-
-
 def event_reset():
-    # ICI le reset
-    print("Nouvelle partie!!!")
+    for x in puits:
+        nvPuitGraines = Mancala.grille[x.label]
+        x.nbGraines = nvPuitGraines
+        x.bouton.configure(text=nvPuitGraines)
 
 
 if __name__ == "__main__":
