@@ -45,8 +45,8 @@ class Mancala:
         lettrePuit = listPuits[indexPuit]
         nbGrainesPuit = Mancala.grille[lettrePuit]
         if lettrePuit in "ABCDEF":
-            for p in range(0, nbGrainesPuit + 1):
-                puitPresent = listPuits[indexPuit]
+            for p in range(0, nbGrainesPuit):
+                puitPresent = listPuits[indexPuit + 1]
                 nbGrainesPuit = Mancala.grille[puitPresent]
                 # Gerer le 13
                 if indexPuit == 13:
@@ -65,7 +65,6 @@ class Mancala:
                 # Gerer les positions de 8 a 12
                 elif indexPuit >= 8 and indexPuit < 13:
                     indexPuit += 1
-                    puitPresent = listPuits[indexPuit]
                     nbGrainesPuit += 1
 
                 print(
