@@ -52,20 +52,20 @@ def event_reset():
 if __name__ == "__main__":
     puits = []
 
-    puits.append(Puit("1", 0, 0, 100, 300, 0))
-    puits.append(Puit("G", 100, 0, 100, 100, 4))
-    puits.append(Puit("H", 200, 0, 100, 100, 4))
-    puits.append(Puit("I", 300, 0, 100, 100, 4))
-    puits.append(Puit("J", 400, 0, 100, 100, 4))
-    puits.append(Puit("K", 500, 0, 100, 100, 4))
-    puits.append(Puit("L", 600, 0, 100, 100, 4))
-    puits.append(Puit("2", 700, 0, 100, 300, 0))
     puits.append(Puit("A", 100, 200, 100, 100, 4))
     puits.append(Puit("B", 200, 200, 100, 100, 4))
     puits.append(Puit("C", 300, 200, 100, 100, 4))
     puits.append(Puit("D", 400, 200, 100, 100, 4))
     puits.append(Puit("E", 500, 200, 100, 100, 4))
     puits.append(Puit("F", 600, 200, 100, 100, 4))
+    puits.append(Puit("2", 0, 0, 100, 300, 0))
+    puits.append(Puit("G", 100, 0, 100, 100, 4))
+    puits.append(Puit("H", 200, 0, 100, 100, 4))
+    puits.append(Puit("I", 300, 0, 100, 100, 4))
+    puits.append(Puit("J", 400, 0, 100, 100, 4))
+    puits.append(Puit("K", 500, 0, 100, 100, 4))
+    puits.append(Puit("L", 600, 0, 100, 100, 4))
+    puits.append(Puit("1", 700, 0, 100, 300, 0))
 
     root = tk.Tk()
     root.resizable(False, False)
