@@ -4,36 +4,7 @@ from MancalaGame import Mancala
 
 
 def event_puit(id):
-    # puitClicked = puits[id]
-    # positionCurrentPuit = puits.index(puitClicked)
-    # print(puits[id].label)
-    # if puitClicked.label in "ABCDEF":
-    #     for p in range(0, puitClicked.nbGraines + 1):
-    #         puitPresent = puits[positionCurrentPuit]
-    #         # Gerer le 13
-    #         if positionCurrentPuit == 13:
-    #             puitPresent.nbGraines += 1
-    #             puitPresent.bouton.configure(text=puitPresent.nbGraines)
-    #             positionCurrentPuit = 7
-    #         # Gerer le 0
-    #         elif positionCurrentPuit == 0:
-    #             puitPresent.nbGraines += 1
-    #             puitPresent.bouton.configure(text=puitPresent.nbGraines)
-    #             positionCurrentPuit = 8
-
-    #         # Gerer les positions a 1 a 7
-    #         elif positionCurrentPuit >= 1 and positionCurrentPuit <= 7:
-    #             puitPresent.nbGraines += 1
-    #             puitPresent.bouton.configure(text=puitPresent.nbGraines)
-    #             positionCurrentPuit -= 1
-
-    #         # Gerer les positions de 8 a 12
-    #         elif positionCurrentPuit >= 8 and positionCurrentPuit < 13:
-    #             puitPresent.nbGraines += 1
-    #             puitPresent.bouton.configure(text=puitPresent.nbGraines)
-    #             positionCurrentPuit += 1
-    #     puitClicked.nbGraines = 0
-    #     puitClicked.bouton.configure(text=puitClicked.nbGraines)
+    print(id)
     Mancala.joueurDeplacement(id)
     for p in puits:
         puitGraines = Mancala.grille[p.label]
@@ -58,14 +29,14 @@ if __name__ == "__main__":
     puits.append(Puit("D", 400, 200, 100, 100, 4))
     puits.append(Puit("E", 500, 200, 100, 100, 4))
     puits.append(Puit("F", 600, 200, 100, 100, 4))
-    puits.append(Puit("2", 0, 0, 100, 300, 0))
+    puits.append(Puit("1", 0, 0, 100, 300, 0))
     puits.append(Puit("G", 100, 0, 100, 100, 4))
     puits.append(Puit("H", 200, 0, 100, 100, 4))
     puits.append(Puit("I", 300, 0, 100, 100, 4))
     puits.append(Puit("J", 400, 0, 100, 100, 4))
     puits.append(Puit("K", 500, 0, 100, 100, 4))
     puits.append(Puit("L", 600, 0, 100, 100, 4))
-    puits.append(Puit("1", 700, 0, 100, 300, 0))
+    puits.append(Puit("2", 700, 0, 100, 300, 0))
 
     root = tk.Tk()
     root.resizable(False, False)
