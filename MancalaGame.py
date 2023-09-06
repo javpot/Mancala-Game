@@ -64,11 +64,17 @@ class Mancala:
                     print("DB positionCurrent: ", indexPuit)
                 Mancala.grille[lettrePuit] = nbGrainesPuit
             Mancala.grille[listPuits[id]] = 0
+            print(Mancala.verifierGagnant())
 
     def ordiDeplacement():
         return False
 
     def verifierGagnant():
-        if True:
-            pass
-        return False
+        listPuits = list(Mancala.grille.values())
+        for x in range(0,6):
+            if(listPuits[x] == 0):
+                continue
+            else:
+                return "Non gagnant"
+            
+        return "Player as won the game"
