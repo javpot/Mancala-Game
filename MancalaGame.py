@@ -40,6 +40,7 @@ class Mancala:
             }
         )
         Mancala.grille = nvGrille
+        Mancala.turn = True
 
     def joueurDeplacement(id):
         listPuits = list(Mancala.grille.keys())
