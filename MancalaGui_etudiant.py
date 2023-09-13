@@ -6,6 +6,7 @@ from MancalaGame import Mancala
 def event_puit(id):
     print(id)
     Mancala.joueurDeplacement(id)
+    # faire une methode jeu pour le deroulement automatique du jeu
     for p in puits:
         puitGraines = Mancala.grille[p.label]
         p.bouton.configure(text=puitGraines)
@@ -70,7 +71,7 @@ if __name__ == "__main__":
 
 """
  G +------+------+--<<<<<-Joueur 2----+------+------+------+ G
- R |      |G     |H     |I     |J     |K     |L     |      | R
+ R |      |L     |K     |J     |I     |H     |G     |      | R
  E |      |   4  |   4  |   4  |   4  |   4  |   4  |      | E
  N |      |      |      |      |      |      |      |      | N
  I |   0  +------+------+------+------+------+------+   0  | I

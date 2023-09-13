@@ -1,7 +1,6 @@
 import random
 
 
-
 class Mancala:
     grille = dict(
         {
@@ -23,8 +22,6 @@ class Mancala:
     )
 
     turn = True
-   
-
 
     def nouvelleGrille():
         nvGrille = dict(
@@ -47,7 +44,6 @@ class Mancala:
         )
         Mancala.grille = nvGrille
         Mancala.turn = True
-        
 
     def joueurDeplacement(id):
         listPuits = list(Mancala.grille.keys())
@@ -55,7 +51,6 @@ class Mancala:
         lettrePuit = listPuits[id]
         nbGrainesPuit = Mancala.grille[lettrePuit]
         if Mancala.turn is True:
-           
             if listPuits[id] in "ABCDEF":
                 for p in range(0, nbGrainesPuit + 1):
                     lettrePuit = listPuits[indexPuit]
@@ -78,78 +73,84 @@ class Mancala:
                 Mancala.grille[listPuits[id]] = 0
                 Mancala.turn = False
                 print(Mancala.verifierGagnantJoueur())
-                
                 Mancala.ordiDeplacement()
-   
+
     def ordiDeplacement():
-        
         Mancala.verifierGagnantOrdi()
-        choix_agent = Agent.choisirMouvement(Mancala.grille)
+        #        choix_agent = Agent.randomAgent(Mancala.grille)
+        choix_agent = Agent.maxAgent(Mancala.grille)
         if choix_agent:
-                lettrePuit = choix_agent
-                indexPuit =(list(Mancala.grille.keys()).index(lettrePuit))
-                id = indexPuit
-                listPuits = list(Mancala.grille.keys())
-                nbGrainesPuit = Mancala.grille[lettrePuit]
-                if Mancala.turn is False:
-                    
-                    for p in range(0, nbGrainesPuit + 1):
-                        lettrePuit = listPuits[indexPuit]
-                        nbGrainesPuit = Mancala.grille[lettrePuit]
-                        
-                        # Gerer index > 13
-                        if indexPuit >= 13:
-                            indexPuit = 0
-                            nbGrainesPuit += 1
-                        elif indexPuit in range(0, 13):
-                            indexPuit += 1
-                            nbGrainesPuit += 1
-                            print(
+            lettrePuit = choix_agent
+            indexPuit = list(Mancala.grille.keys()).index(lettrePuit)
+            id = indexPuit
+            listPuits = list(Mancala.grille.keys())
+            nbGrainesPuit = Mancala.grille[lettrePuit]
+            if Mancala.turn is False:
+                for p in range(0, nbGrainesPuit + 1):
+                    lettrePuit = listPuits[indexPuit]
+                    nbGrainesPuit = Mancala.grille[lettrePuit]
+
+                    # Gerer index > 13
+                    if indexPuit >= 13:
+                        indexPuit = 0
+                        nbGrainesPuit += 1
+                    elif indexPuit in range(0, 13):
+                        indexPuit += 1
+                        nbGrainesPuit += 1
+                        print(
                             "DB label, nbGraines: ",
                             lettrePuit,
                             ", ",
                             nbGrainesPuit,
-                            )
-                            print("DB positionCurrent: ", indexPuit)
-                        Mancala.grille[lettrePuit] = nbGrainesPuit
-                    Mancala.grille[listPuits[id]] = 0
-                    Mancala.turn = True
-                    print(Mancala.verifierGagnantOrdi())
+                        )
+                        print("DB positionCurrent: ", indexPuit)
+                    Mancala.grille[lettrePuit] = nbGrainesPuit
+                Mancala.grille[listPuits[id]] = 0
+                Mancala.turn = True
+                print(Mancala.verifierGagnantOrdi())
         else:
-                 print("L'ordinateur ne peut pas effectuer de mouvement valide.")
-                 Mancala.turn = True
-                 
+            print("L'ordinateur ne peut pas effectuer de mouvement valide.")
+            Mancala.turn = True
 
     def verifierGagnantJoueur():
         listPuits = list(Mancala.grille.values())
         for x in range(0, 6):
             if listPuits[x] == 0:
                 continue
-            else:
-                return "Non gagnant"
-
-        return "Player has won the game"
+        return True
 
     def verifierGagnantOrdi():
         listPuits = list(Mancala.grille.values())
         for x in range(7, 13):
             if listPuits[x] == 0:
                 continue
-            else:
-                return "Non gagnant"
-
-        return "Ordi has won the game"
+        return True
 
 
 class Agent:
-    @staticmethod
-    def choisirMouvement(grille):
-        # Obtenez la liste des puits valides que l'agent peut choisir
-        puits_valides = [lettre for lettre, graines in grille.items() if graines > 0 and lettre in "GHIJKL"]
+    puits_valides = [
+        lettre
+        for lettre, graines in Mancala.grille.items()
+        if graines > 0 and lettre in "GHIJKL"
+    ]
 
-        # Choisissez alÃ©atoirement un puit parmi les puits valides
-        if puits_valides:
-            choix_puit = random.choice(puits_valides)
+    def randomAgent(grille):
+        if Agent.puits_valides:
+            choix_puit = random.choice(Agent.puits_valides)
             return choix_puit
         else:
             return None
+
+    def maxAgent(grille):
+        index = Agent.puits_valides[0]
+        max = Mancala.grille[index]
+
+        choix_max = [
+            lettre
+            for lettre, graines in Mancala.grille.items()
+            if graines > max and lettre in "GHIJKL"
+        ]
+        if choix_max:
+            choix_puit = random.choice(choix_max)
+            return choix_puit
+        return Agent.randomAgent(Mancala.grille)
