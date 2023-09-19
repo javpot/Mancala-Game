@@ -1,4 +1,5 @@
 import random
+import tkinter as tk
 
 
 class Mancala:
@@ -72,11 +73,9 @@ class Mancala:
                     Mancala.grille[lettrePuit] = nbGrainesPuit
                 Mancala.grille[listPuits[id]] = 0
                 Mancala.turn = False
-                print(Mancala.verifierGagnantJoueur())
-                Mancala.ordiDeplacement()
 
     def ordiDeplacement():
-        Mancala.verifierGagnantOrdi()
+        Mancala.verifierPartieTerminer()
         #        choix_agent = Agent.randomAgent(Mancala.grille)
         choix_agent = Agent.maxAgent(Mancala.grille)
         if choix_agent:
@@ -107,24 +106,34 @@ class Mancala:
                     Mancala.grille[lettrePuit] = nbGrainesPuit
                 Mancala.grille[listPuits[id]] = 0
                 Mancala.turn = True
-                print(Mancala.verifierGagnantOrdi())
         else:
             print("L'ordinateur ne peut pas effectuer de mouvement valide.")
             Mancala.turn = True
 
-    def verifierGagnantJoueur():
+    def verifierPartieTerminer():
         listPuits = list(Mancala.grille.values())
         for x in range(0, 6):
             if listPuits[x] == 0:
                 continue
-        return True
-
-    def verifierGagnantOrdi():
-        listPuits = list(Mancala.grille.values())
-        for x in range(7, 13):
-            if listPuits[x] == 0:
+            return Mancala.verifierGagnant()
+        for y in range(7, 13):
+            if listPuits[y] == 0:
                 continue
-        return True
+            return Mancala.verifierGagnant()
+        return False
+
+    def verifierGagnant():
+        listPuits = list(Mancala.grille.values())
+        panierOrdi = listPuits[13]
+        panierJoueur = listPuits[6]
+        return panierJoueur > panierOrdi
+
+    def jouerEncore(id):
+        listPuits = list(Mancala.grille.keys())
+        lettrePuit = listPuits[id]
+        nbGrainesPuit = Mancala.grille[lettrePuit]
+
+        return False
 
 
 class Agent:
