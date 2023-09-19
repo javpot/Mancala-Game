@@ -4,13 +4,12 @@ from MancalaGame import Mancala
 
 
 def event_puit(id):
-    print(id)
     Mancala.joueurDeplacement(id)
     for p in puits:
         puitGraines = Mancala.grille[p.label]
         p.bouton.configure(text=puitGraines)
-    print(Mancala.grille)
-    root.after(2000, event_ordi)
+    if Mancala.turn is False:
+        root.after(2000, event_ordi)
 
 
 def event_ordi():
@@ -18,7 +17,8 @@ def event_ordi():
     for p in puits:
         puitGraines = Mancala.grille[p.label]
         p.bouton.configure(text=puitGraines)
-    print(Mancala.grille)
+    if Mancala.turn is False:
+        root.after(2000, event_ordi)
 
 
 def event_reset():
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         puit.bouton.place(x=puit.x, y=puit.y, width=puit.width, height=puit.height)
 
     status_label = tk.Label(
-        play_area, text="Message ici", font=("Arial", 16), bg="white"
+        play_area, text="Message ici", font=("Arial", 16), bg="white", fg="black"
     )
     status_label.place(x=100, y=100, width=600, height=100)
 

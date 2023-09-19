@@ -46,69 +46,48 @@ class Mancala:
         Mancala.grille = nvGrille
         Mancala.turn = True
 
+    puitsOpp = dict(
+        {
+            0: 12,
+            1: 11,
+            2: 10,
+            3: 9,
+            4: 8,
+            5: 7,
+            12: 0,
+            11: 1,
+            10: 2,
+            9: 3,
+            8: 4,
+            7: 5,
+        }
+    )
+
     def joueurDeplacement(id):
         listPuits = list(Mancala.grille.keys())
-        indexPuit = id
-        lettrePuit = listPuits[id]
-        nbGrainesPuit = Mancala.grille[lettrePuit]
         if Mancala.turn is True:
             if listPuits[id] in "ABCDEF":
-                for p in range(0, nbGrainesPuit + 1):
-                    lettrePuit = listPuits[indexPuit]
-                    nbGrainesPuit = Mancala.grille[lettrePuit]
-                    # Gerer index > 13
-                    if indexPuit >= 13:
-                        indexPuit = 0
-                        nbGrainesPuit += 1
-                    elif indexPuit in range(0, 13):
-                        indexPuit += 1
-                        nbGrainesPuit += 1
-                        print(
-                            "DB label, nbGraines: ",
-                            lettrePuit,
-                            ", ",
-                            nbGrainesPuit,
-                        )
-                        print("DB positionCurrent: ", indexPuit)
-                    Mancala.grille[lettrePuit] = nbGrainesPuit
+                Mancala.deplacer(id, listPuits)
+                if Mancala.jouerEncore(id, 6):
+                    Mancala.turn = True
+                else:
+                    Mancala.turn = False
                 Mancala.grille[listPuits[id]] = 0
-                Mancala.turn = False
+                Mancala.verifierPartieTerminer()
 
     def ordiDeplacement():
-        Mancala.verifierPartieTerminer()
-        #        choix_agent = Agent.randomAgent(Mancala.grille)
-        choix_agent = Agent.maxAgent(Mancala.grille)
-        if choix_agent:
+        listPuits = list(Mancala.grille.keys())
+        if Mancala.turn is False:
+            choix_agent = Agent.maxAgent(Mancala.grille)
             lettrePuit = choix_agent
-            indexPuit = list(Mancala.grille.keys()).index(lettrePuit)
-            id = indexPuit
-            listPuits = list(Mancala.grille.keys())
-            nbGrainesPuit = Mancala.grille[lettrePuit]
-            if Mancala.turn is False:
-                for p in range(0, nbGrainesPuit + 1):
-                    lettrePuit = listPuits[indexPuit]
-                    nbGrainesPuit = Mancala.grille[lettrePuit]
-
-                    # Gerer index > 13
-                    if indexPuit >= 13:
-                        indexPuit = 0
-                        nbGrainesPuit += 1
-                    elif indexPuit in range(0, 13):
-                        indexPuit += 1
-                        nbGrainesPuit += 1
-                        print(
-                            "DB label, nbGraines: ",
-                            lettrePuit,
-                            ", ",
-                            nbGrainesPuit,
-                        )
-                        print("DB positionCurrent: ", indexPuit)
-                    Mancala.grille[lettrePuit] = nbGrainesPuit
-                Mancala.grille[listPuits[id]] = 0
+            id = listPuits.index(lettrePuit)
+            Mancala.deplacer(id, listPuits)
+            if Mancala.jouerEncore(id, 13):
+                Mancala.turn = False
+            else:
                 Mancala.turn = True
-        else:
-            print("L'ordinateur ne peut pas effectuer de mouvement valide.")
-            Mancala.turn = True
+            Mancala.grille[listPuits[id]] = 0
+        Mancala.verifierPartieTerminer()
 
     def verifierPartieTerminer():
         listPuits = list(Mancala.grille.values())
@@ -128,12 +107,31 @@ class Mancala:
         panierJoueur = listPuits[6]
         return panierJoueur > panierOrdi
 
-    def jouerEncore(id):
+    def jouerEncore(id, idPanier):
         listPuits = list(Mancala.grille.keys())
         lettrePuit = listPuits[id]
+        nbGrainesPuit = Mancala.grille[lettrePuit] - 1
+        if (id + nbGrainesPuit) == idPanier:
+            return True
+        else:
+            return False
+
+    def deplacer(id, list):
+        indexPuit = id
+        lettrePuit = list[id]
         nbGrainesPuit = Mancala.grille[lettrePuit]
 
-        return False
+        for p in range(0, nbGrainesPuit + 1):
+            lettrePuit = list[indexPuit]
+            nbGrainesPuit = Mancala.grille[lettrePuit]
+            # Gerer index > 13
+            if indexPuit >= 13:
+                indexPuit = 0
+                nbGrainesPuit += 1
+            elif indexPuit in range(0, 13):
+                indexPuit += 1
+                nbGrainesPuit += 1
+            Mancala.grille[lettrePuit] = nbGrainesPuit
 
 
 class Agent:
