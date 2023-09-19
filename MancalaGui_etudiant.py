@@ -8,6 +8,7 @@ def event_puit(id):
     for p in puits:
         puitGraines = Mancala.grille[p.label]
         p.bouton.configure(text=puitGraines)
+    print(Mancala.grille)
     if Mancala.turn is False:
         root.after(2000, event_ordi)
 

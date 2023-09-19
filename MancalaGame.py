@@ -68,6 +68,7 @@ class Mancala:
         if Mancala.turn is True:
             if listPuits[id] in "ABCDEF":
                 Mancala.deplacer(id, listPuits)
+                Mancala.volerGraines(id, 6)
                 if Mancala.jouerEncore(id, 6):
                     Mancala.turn = True
                 else:
@@ -82,12 +83,13 @@ class Mancala:
             lettrePuit = choix_agent
             id = listPuits.index(lettrePuit)
             Mancala.deplacer(id, listPuits)
+            Mancala.volerGraines(id, 13)
             if Mancala.jouerEncore(id, 13):
                 Mancala.turn = False
             else:
                 Mancala.turn = True
             Mancala.grille[listPuits[id]] = 0
-        Mancala.verifierPartieTerminer()
+            Mancala.verifierPartieTerminer()
 
     def verifierPartieTerminer():
         listPuits = list(Mancala.grille.values())
@@ -99,12 +101,12 @@ class Mancala:
             if listPuits[y] == 0:
                 continue
             return Mancala.verifierGagnant()
-        return False
 
     def verifierGagnant():
         listPuits = list(Mancala.grille.values())
         panierOrdi = listPuits[13]
         panierJoueur = listPuits[6]
+        print(panierJoueur > panierOrdi)
         return panierJoueur > panierOrdi
 
     def jouerEncore(id, idPanier):
@@ -115,6 +117,33 @@ class Mancala:
             return True
         else:
             return False
+
+    def volerGraines(id, idPanier):
+        listPuits = list(Mancala.grille.keys())
+        lettrePuit = listPuits[id]
+        panier = listPuits[idPanier]
+        nbGrainesPuit = Mancala.grille[lettrePuit] - 1
+
+        dernierPuit = id + nbGrainesPuit
+        if dernierPuit > 13:
+            num = dernierPuit - len(listPuits)
+            indexDernierP = num - 1
+        else:
+            indexDernierP = dernierPuit
+            if indexDernierP == 6 or indexDernierP == 13:
+                return False
+
+        lettreDernierP = listPuits[indexDernierP]
+        nbGrainesDernierP = Mancala.grille[lettreDernierP]
+
+        if nbGrainesDernierP == 1:
+            indexPuitOpp = Mancala.puitsOpp[indexDernierP]
+            lettrePuitOpp = listPuits[indexPuitOpp]
+            nbGPuitOpp = Mancala.grille[lettrePuitOpp]
+            Mancala.grille[lettrePuitOpp] = 0
+            Mancala.grille[lettreDernierP] = 0
+            sommeGr = nbGrainesDernierP + nbGPuitOpp
+            Mancala.grille[panier] += sommeGr
 
     def deplacer(id, list):
         indexPuit = id
