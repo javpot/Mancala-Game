@@ -22,7 +22,7 @@ class Mancala:
         }
     )
 
-    turn = True
+    turn = None
 
     def nouvelleGrille():
         nvGrille = dict(
@@ -44,7 +44,7 @@ class Mancala:
             }
         )
         Mancala.grille = nvGrille
-        Mancala.turn = True
+        Mancala.turn = None
 
     puitsOpp = dict(
         {
@@ -67,8 +67,7 @@ class Mancala:
         listPuits = list(Mancala.grille.keys())
         if Mancala.turn is True:
             if listPuits[id] in "ABCDEF":
-                Mancala.deplacer(id, listPuits)
-                Mancala.volerGraines(id, 6)
+                Mancala.deplacer(id, listPuits, 6)
                 if Mancala.jouerEncore(id, 6):
                     Mancala.turn = True
                 else:
@@ -82,8 +81,7 @@ class Mancala:
             choix_agent = Agent.maxAgent(Mancala.grille)
             lettrePuit = choix_agent
             id = listPuits.index(lettrePuit)
-            Mancala.deplacer(id, listPuits)
-            Mancala.volerGraines(id, 13)
+            Mancala.deplacer(id, listPuits, 13)
             if Mancala.jouerEncore(id, 13):
                 Mancala.turn = False
             else:
@@ -96,17 +94,23 @@ class Mancala:
         for x in range(0, 6):
             if listPuits[x] == 0:
                 continue
-            return Mancala.verifierGagnant()
+            return True
         for y in range(7, 13):
             if listPuits[y] == 0:
                 continue
-            return Mancala.verifierGagnant()
+            return True
+        else:
+            return False
 
     def verifierGagnant():
         listPuits = list(Mancala.grille.values())
-        panierOrdi = listPuits[13]
-        panierJoueur = listPuits[6]
-        print(panierJoueur > panierOrdi)
+        if Mancala.verifierPartieTerminer():
+            sumOrdi = sum(listPuits[7:13])
+            sumJoueur = sum(listPuits[0:6])
+            panierOrdi = listPuits[13] + sumOrdi
+            panierJoueur = listPuits[6] + sumJoueur
+            print(panierJoueur > panierOrdi)
+            print("panierOrdi:", panierOrdi, "\npanierJoueur:", panierJoueur)
         return panierJoueur > panierOrdi
 
     def jouerEncore(id, idPanier):
@@ -142,12 +146,14 @@ class Mancala:
             indexPuitOpp = Mancala.puitsOpp[indexDernierP]
             lettrePuitOpp = listPuits[indexPuitOpp]
             nbGPuitOpp = Mancala.grille[lettrePuitOpp]
-            Mancala.grille[lettrePuitOpp] = 0
-            Mancala.grille[lettreDernierP] = 0
-            sommeGr = nbGrainesDernierP + nbGPuitOpp
-            Mancala.grille[panier] += sommeGr
+            if nbGPuitOpp > 0:
+                Mancala.grille[lettrePuitOpp] = 0
+                Mancala.grille[lettreDernierP] = 0
+                sommeGr = nbGrainesDernierP + nbGPuitOpp
+                Mancala.grille[panier] += sommeGr
+        return False
 
-    def deplacer(id, list):
+    def deplacer(id, list, idPanier):
         indexPuit = id
         lettrePuit = list[id]
         nbGrainesPuit = Mancala.grille[lettrePuit]
@@ -163,6 +169,7 @@ class Mancala:
                 indexPuit += 1
                 nbGrainesPuit += 1
             Mancala.grille[lettrePuit] = nbGrainesPuit
+        Mancala.volerGraines(id, idPanier)
 
 
 class Agent:

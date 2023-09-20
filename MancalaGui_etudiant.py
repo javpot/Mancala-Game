@@ -4,22 +4,21 @@ from MancalaGame import Mancala
 
 
 def event_puit(id):
-    Mancala.joueurDeplacement(id)
-    for p in puits:
-        puitGraines = Mancala.grille[p.label]
-        p.bouton.configure(text=puitGraines)
-    print(Mancala.grille)
-    if Mancala.turn is False:
-        root.after(2000, event_ordi)
+    if id >= 0 and id <= 5:
+        Mancala.joueurDeplacement(id)
+        for p in puits:
+            puitGraines = Mancala.grille[p.label]
+            p.bouton.configure(text=puitGraines)
+        if Mancala.turn is False:
+            root.after(2000, event_ordi)
 
 
 def event_ordi():
-    Mancala.ordiDeplacement()
-    for p in puits:
-        puitGraines = Mancala.grille[p.label]
-        p.bouton.configure(text=puitGraines)
-    if Mancala.turn is False:
-        root.after(2000, event_ordi)
+    while Mancala.turn is False:
+        Mancala.ordiDeplacement()
+        for p in puits:
+            puitGraines = Mancala.grille[p.label]
+            p.bouton.configure(text=puitGraines)
 
 
 def event_reset():
@@ -28,6 +27,15 @@ def event_reset():
         nvPuitGraines = Mancala.grille[x.label]
         x.nbGraines = nvPuitGraines
         x.bouton.configure(text=nvPuitGraines)
+
+
+def ordi_turn():
+    Mancala.turn = False
+    event_ordi()
+
+
+def joueur_turn():
+    Mancala.turn = True
 
 
 if __name__ == "__main__":
@@ -75,6 +83,19 @@ if __name__ == "__main__":
         root, text="Nouvelle partie", font=("Arial", 12), command=event_reset
     )
     play_again_button.pack(pady=10)
+
+    choix_label = tk.Label(
+        root, text="Qui commence?", font=("Arial", 16), bg="white", fg="black"
+    )
+    choix_label.pack(side=tk.LEFT)
+
+    player_button = tk.Button(
+        root, text="Joueur", font=("Arial", 12), command=joueur_turn
+    )
+    player_button.pack(side=tk.LEFT)
+
+    ordi_button = tk.Button(root, text="Ordi", font=("Arial", 12), command=ordi_turn)
+    ordi_button.pack(side=tk.LEFT)
 
     root.mainloop()
 
