@@ -128,6 +128,8 @@ class Mancala:
         if dernierPuit > 13:
             num = dernierPuit - len(listPuits)
             indexDernierP = num - 1
+            if indexDernierP == -1:
+                indexDernierP = 0
         else:
             indexDernierP = dernierPuit
             if indexDernierP == 6 or indexDernierP == 13:
