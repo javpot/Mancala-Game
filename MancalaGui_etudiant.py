@@ -84,9 +84,7 @@ if __name__ == "__main__":
     )
     play_again_button.pack(pady=10)
 
-    choix_label = tk.Label(
-        root, text="Qui commence?", font=("Arial", 16), bg="white", fg="black"
-    )
+    choix_label = tk.Label(root, text="Qui commence?", font=("Arial", 16))
     choix_label.pack(side=tk.LEFT)
 
     player_button = tk.Button(

@@ -76,28 +76,14 @@ class Mancala:
                 Mancala.verifierPartieTerminer()
 
     def ordiDeplacement():
-        listPuits = list(Mancala.grille.keys())
-        if Mancala.turn is False:
-            choix_agent = Agent.maxAgent(Mancala.grille)
-            lettrePuit = choix_agent
-            id = listPuits.index(lettrePuit)
-            Mancala.deplacer(id, listPuits, 13)
-            if Mancala.jouerEncore(id, 13):
-                Mancala.turn = False
-            else:
-                Mancala.turn = True
-            Mancala.grille[listPuits[id]] = 0
-            Mancala.verifierPartieTerminer()
+        Agent.make_best_move()
+        Mancala.verifierPartieTerminer()
 
     def verifierPartieTerminer():
         listPuits = list(Mancala.grille.values())
-        for x in range(0, 6):
-            if listPuits[x] == 0:
-                continue
-            return True
-        for y in range(7, 13):
-            if listPuits[y] == 0:
-                continue
+        sumOrdi = sum(listPuits[7:13])
+        sumJoueur = sum(listPuits[0:6])
+        if sumOrdi == 0 or sumJoueur == 0:
             return True
         else:
             return False
@@ -134,10 +120,10 @@ class Mancala:
             indexDernierP = num - 1
             if indexDernierP == -1:
                 indexDernierP = 0
+        elif dernierPuit == 13 or dernierPuit == 6:
+            return False
         else:
             indexDernierP = dernierPuit
-            if indexDernierP == 6 or indexDernierP == 13:
-                return False
 
         lettreDernierP = listPuits[indexDernierP]
         nbGrainesDernierP = Mancala.grille[lettreDernierP]
@@ -155,7 +141,7 @@ class Mancala:
 
     def deplacer(id, list, idPanier):
         indexPuit = id
-        lettrePuit = list[id]
+        lettrePuit = list[indexPuit]
         nbGrainesPuit = Mancala.grille[lettrePuit]
 
         for p in range(0, nbGrainesPuit + 1):
@@ -195,7 +181,70 @@ class Agent:
             for lettre, graines in Mancala.grille.items()
             if graines > max and lettre in "GHIJKL"
         ]
+
         if choix_max:
             choix_puit = random.choice(choix_max)
             return choix_puit
         return Agent.randomAgent(Mancala.grille)
+
+    def make_best_move():
+        listpuits = list(Mancala.grille.keys())
+        best_score = float("-inf")
+        best_move = None
+        for move in Agent.puits_valides:
+            # Cloner l'état actuel pour simuler le mouvement
+            cloned_grille = Mancala.grille.copy()
+            cloned_turn = Mancala.turn
+            Agent.minimax(move, 0)
+            score = Agent.minimax(move, 0)
+
+            # Restaurer l'état original
+            Mancala.grille = cloned_grille
+            Mancala.turn = cloned_turn
+
+            if score > best_score:
+                best_score = score
+                best_move = move
+
+        if best_move is not None:
+            Mancala.deplacer(listpuits.index(best_move), listpuits, 13)
+            if Mancala.jouerEncore(listpuits.index(best_move), 13):
+                Mancala.turn = False
+            else:
+                Mancala.turn = True
+            Mancala.grille[best_move] = 0
+
+    def minimax(move, depth):
+        if depth == 3:  # Ajustez la profondeur de recherche ici
+            return Agent.evaluate_board()
+
+        # Cloner l'état actuel pour simuler le mouvement
+        cloned_grille = Mancala.grille.copy()
+        clone_list = list(cloned_grille.keys())
+        cloned_turn = Mancala.turn
+        Mancala.deplacer(Agent.puits_valides.index(move), clone_list, 13)
+
+        if Mancala.turn:  # Si c'est le tour du joueur humain
+            best_score = float("-inf")
+            for next_move in list(Mancala.grille.keys()):
+                score = Agent.minimax(next_move, depth + 1)
+                best_score = max(score, best_score)
+        elif Mancala.turn is False:  # Si c'est le tour de l'ordinateur
+            best_score = float("inf")
+            for next_move in Agent.puits_valides:
+                score = Agent.minimax(next_move, depth + 1)
+                best_score = min(score, best_score)
+
+        # Restaurer l'état original
+        Mancala.grille = cloned_grille
+        Mancala.turn = cloned_turn
+
+        return best_score
+
+    def evaluate_board():
+        # Vous pouvez définir votre fonction d'évaluation ici
+        # Elle doit retourner une valeur numérique qui indique la qualité de la position actuelle.
+        # Par exemple, vous pouvez considérer la différence entre le nombre de graines dans les puits des deux joueurs.
+        player_puits = sum(Mancala.grille[letter] for letter in "ABCDEF")
+        opponent_puits = sum(Mancala.grille[letter] for letter in "GHIJKL")
+        return player_puits - opponent_puits
