@@ -16,9 +16,9 @@ def event_puit(id):
 def event_ordi():
     while Mancala.turn is False:
         Mancala.ordiDeplacement()
-        for p in puits:
-            puitGraines = Mancala.grille[p.label]
-            p.bouton.configure(text=puitGraines)
+    for p in puits:
+        puitGraines = Mancala.grille[p.label]
+        p.bouton.configure(text=puitGraines)
 
 
 def event_reset():
@@ -94,6 +94,46 @@ if __name__ == "__main__":
 
     ordi_button = tk.Button(root, text="Ordi", font=("Arial", 12), command=ordi_turn)
     ordi_button.pack(side=tk.LEFT)
+
+    # difficulty_label = tk.Label(
+    #     root, text="Choisir votre difficulte", font=("Arial", 16)
+    # )
+    # difficulty_label.pack(pady=10)
+
+    # var = tk.IntVar()
+
+    # frame = tk.Frame(root)
+    # frame.pack(pady=10)
+
+    # easy_button = tk.Radiobutton(
+    #     frame,
+    #     text="Facile(random)",
+    #     variable=var,
+    #     value=1,
+    #     font=("Arial", 12),
+    #     command=lambda: (Mancala.jouerFacile(), event_ordi()),
+    # )
+    # easy_button.pack(pady=5)
+
+    # medium_button = tk.Radiobutton(
+    #     frame,
+    #     text="Moyen(max)",
+    #     variable=var,
+    #     value=2,
+    #     font=("Arial", 12),
+    #     command=Mancala.jouerMoyen,
+    # )
+    # medium_button.pack(pady=5)
+
+    # hard_button = tk.Radiobutton(
+    #     frame,
+    #     text="Difficile(minimax)",
+    #     variable=var,
+    #     value=3,
+    #     font=("Arial", 12),
+    #     command=Mancala.jouerDiff,
+    # )
+    # hard_button.pack(pady=5)
 
     root.mainloop()
 

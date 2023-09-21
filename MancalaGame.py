@@ -23,6 +23,7 @@ class Mancala:
     )
 
     turn = None
+    list_puits = list(grille.keys())
 
     def nouvelleGrille():
         nvGrille = dict(
@@ -76,6 +77,24 @@ class Mancala:
                 Mancala.verifierPartieTerminer()
 
     def ordiDeplacement():
+        if Mancala.turn is False:
+            Agent.make_best_move()
+            Mancala.verifierPartieTerminer()
+
+    def jouerFacile():
+        while Mancala.turn is False:
+            choix_agent = Agent.randomAgent(Mancala.grille)
+            idx = Mancala.list_puits.index(choix_agent)
+            Mancala.deplacer(idx, Mancala.list_puits, 13)
+        Mancala.verifierPartieTerminer()
+
+    def jouerMoyen():
+        choix_agent = Agent.maxAgent(Mancala.grille)
+        idx = Mancala.list_puits.index(choix_agent)
+        Mancala.deplacer(idx, Mancala.list_puits, 13)
+        Mancala.verifierPartieTerminer()
+
+    def jouerDiff():
         Agent.make_best_move()
         Mancala.verifierPartieTerminer()
 
@@ -235,11 +254,11 @@ class Agent:
                 score = Agent.minimax(next_move, depth + 1)
                 best_score = min(score, best_score)
 
-        # Restaurer l'état original
-        Mancala.grille = cloned_grille
-        Mancala.turn = cloned_turn
+            # Restaurer l'état original
+            Mancala.grille = cloned_grille
+            Mancala.turn = cloned_turn
 
-        return best_score
+            return best_score
 
     def evaluate_board():
         # Vous pouvez définir votre fonction d'évaluation ici
