@@ -74,29 +74,25 @@ class Mancala:
                 else:
                     Mancala.turn = False
                 Mancala.grille[listPuits[id]] = 0
-                Mancala.verifierPartieTerminer()
+                Mancala.verifierGagnant()
 
     def ordiDeplacement():
         if Mancala.turn is False:
             Agent.make_best_move()
-            Mancala.verifierPartieTerminer()
+            Mancala.verifierGagnant()
 
-    def jouerFacile():
-        while Mancala.turn is False:
-            choix_agent = Agent.randomAgent(Mancala.grille)
-            idx = Mancala.list_puits.index(choix_agent)
-            Mancala.deplacer(idx, Mancala.list_puits, 13)
-        Mancala.verifierPartieTerminer()
+    # def jouerFacile():
+    #     while Mancala.turn is False:
+    #         choix_agent = Agent.randomAgent(Mancala.grille)
+    #         idx = Mancala.list_puits.index(choix_agent)
+    #         Mancala.deplacer(idx, Mancala.list_puits, 13)
+    #     Mancala.verifierPartieTerminer()
 
-    def jouerMoyen():
-        choix_agent = Agent.maxAgent(Mancala.grille)
-        idx = Mancala.list_puits.index(choix_agent)
-        Mancala.deplacer(idx, Mancala.list_puits, 13)
-        Mancala.verifierPartieTerminer()
-
-    def jouerDiff():
-        Agent.make_best_move()
-        Mancala.verifierPartieTerminer()
+    # def jouerMoyen():
+    #     choix_agent = Agent.maxAgent(Mancala.grille)
+    #     idx = Mancala.list_puits.index(choix_agent)
+    #     Mancala.deplacer(idx, Mancala.list_puits, 13)
+    #     Mancala.verifierPartieTerminer()
 
     def verifierPartieTerminer():
         listPuits = list(Mancala.grille.values())
@@ -114,9 +110,12 @@ class Mancala:
             sumJoueur = sum(listPuits[0:6])
             panierOrdi = listPuits[13] + sumOrdi
             panierJoueur = listPuits[6] + sumJoueur
-            print(panierJoueur > panierOrdi)
-            print("panierOrdi:", panierOrdi, "\npanierJoueur:", panierJoueur)
-        return panierJoueur > panierOrdi
+            if panierJoueur > panierOrdi:
+                return "Joueur Gagner"
+            else:
+                return "Ordi Gagner"
+        else:
+            return "Partie pas encore termine"
 
     def jouerEncore(id, idPanier):
         listPuits = list(Mancala.grille.keys())
@@ -156,7 +155,7 @@ class Mancala:
                 Mancala.grille[lettreDernierP] = 0
                 sommeGr = nbGrainesDernierP + nbGPuitOpp
                 Mancala.grille[panier] += sommeGr
-        return False
+        Mancala.turn = False
 
     def deplacer(id, list, idPanier):
         indexPuit = id
@@ -175,6 +174,7 @@ class Mancala:
                 nbGrainesPuit += 1
             Mancala.grille[lettrePuit] = nbGrainesPuit
         Mancala.volerGraines(id, idPanier)
+        Mancala.verifierGagnant()
 
 
 class Agent:

@@ -73,8 +73,9 @@ if __name__ == "__main__":
         puit.bouton.place(x=puit.x, y=puit.y, width=puit.width, height=puit.height)
 
     status_label = tk.Label(
-        play_area, text="Message ici", font=("Arial", 16), bg="white", fg="black"
+        play_area, text="", font=("Arial", 16), bg="white", fg="black"
     )
+
     status_label.place(x=100, y=100, width=600, height=100)
 
     play_area.pack(pady=10, padx=10)
@@ -94,46 +95,6 @@ if __name__ == "__main__":
 
     ordi_button = tk.Button(root, text="Ordi", font=("Arial", 12), command=ordi_turn)
     ordi_button.pack(side=tk.LEFT)
-
-    # difficulty_label = tk.Label(
-    #     root, text="Choisir votre difficulte", font=("Arial", 16)
-    # )
-    # difficulty_label.pack(pady=10)
-
-    # var = tk.IntVar()
-
-    # frame = tk.Frame(root)
-    # frame.pack(pady=10)
-
-    # easy_button = tk.Radiobutton(
-    #     frame,
-    #     text="Facile(random)",
-    #     variable=var,
-    #     value=1,
-    #     font=("Arial", 12),
-    #     command=lambda: (Mancala.jouerFacile(), event_ordi()),
-    # )
-    # easy_button.pack(pady=5)
-
-    # medium_button = tk.Radiobutton(
-    #     frame,
-    #     text="Moyen(max)",
-    #     variable=var,
-    #     value=2,
-    #     font=("Arial", 12),
-    #     command=Mancala.jouerMoyen,
-    # )
-    # medium_button.pack(pady=5)
-
-    # hard_button = tk.Radiobutton(
-    #     frame,
-    #     text="Difficile(minimax)",
-    #     variable=var,
-    #     value=3,
-    #     font=("Arial", 12),
-    #     command=Mancala.jouerDiff,
-    # )
-    # hard_button.pack(pady=5)
 
     root.mainloop()
 
