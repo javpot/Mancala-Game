@@ -24,6 +24,7 @@ board_rect = board.get_rect()
 board_rect.center = (width // 2, height // 2)
 
 # Créez des instances de la classe Puit avec les coordonnées appropriées
+
 puits = []
 puits.append(Puit("A", 256, 505, 57, 57, 4, "4.jpg"))
 puits.append(Puit("B", 314, 305, 57, 57, 4, "4.jpg"))
@@ -31,14 +32,15 @@ puits.append(Puit("C", 372, 305, 57, 57, 4, "4.jpg"))
 puits.append(Puit("D", 476, 305, 57, 57, 4, "4.jpg"))
 puits.append(Puit("E", 534, 305, 57, 57, 4, "4.jpg"))
 puits.append(Puit("F", 592, 305, 57, 57, 4, "4.jpg"))
-puits.append(Puit("1", 195, 240, 55, 122, 0, "se.jpg"))
-puits.append(Puit("L", 256, 240, 57, 57, 4, "4.jpg"))
-puits.append(Puit("K", 314, 240, 57, 57, 4, "4.jpg"))
-puits.append(Puit("J", 372, 240, 57, 57, 4, "4.jpg"))
-puits.append(Puit("I", 476, 240, 57, 57, 4, "4.jpg"))
-puits.append(Puit("H", 534, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("1", 654, 240, 55, 122, 0, "se.jpg"))
 puits.append(Puit("G", 592, 240, 57, 57, 4, "4.jpg"))
-puits.append(Puit("2", 654, 240, 55, 122, 0, "se.jpg"))
+puits.append(Puit("H", 534, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("I", 476, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("J", 372, 240,  57, 57, 4, "4.jpg"))
+puits.append(Puit("K", 314, 240,  57, 57, 4, "4.jpg"))
+puits.append(Puit("L", 256, 240,  57, 57, 4, "4.jpg"))
+puits.append(Puit("2", 195, 240,  55, 122, 0, "se.jpg"))
+
 
 font = pygame.font.Font(None, 48)
 
@@ -66,6 +68,7 @@ variable_text_rectJoueur.topright = (width - 100, text_joueur_rect.bottom + 10) 
 # Boucle principale
 running = True
 while running:
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
