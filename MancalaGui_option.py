@@ -1,6 +1,7 @@
 import pygame
 import sys
-import MancalaGui_game
+from MancalaGame import Mancala
+
 
 # Initialisation de Pygame
 def run_option_interface():
@@ -24,7 +25,9 @@ def run_option_interface():
 
     # Position de départ pour les boutons
     button_x = width // 2
-    button_y = (height - (len(button_texts) * 70)) // 2  # Centre les boutons verticalement
+    button_y = (
+        height - (len(button_texts) * 70)
+    ) // 2  # Centre les boutons verticalement
 
     # Création des boutons interactifs
     buttons = []
@@ -45,7 +48,7 @@ def run_option_interface():
                     for button, text in buttons:
                         if button.collidepoint(event.pos):
                             print(f"Vous avez cliqué sur {text}.")
-                            MancalaGui_game(text)
+                            Mancala.textDifficulty = text
 
         screen.fill(BLACK)  # Fond jaune
 

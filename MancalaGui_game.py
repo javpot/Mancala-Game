@@ -24,6 +24,10 @@ def event_ordi():
         p.bouton.configure(text=puitGraines)
 
 
+def send_text_to_game(text):
+    Mancala.textDifficulty = text
+
+
 # Initialisation de Pygame
 pygame.init()
 
@@ -122,4 +126,3 @@ while running:
 
 pygame.quit()
 sys.exit()
-
