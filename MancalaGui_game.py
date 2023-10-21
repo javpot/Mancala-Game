@@ -1,11 +1,28 @@
 import pygame
 import sys
 from Puit import Puit
+import tkinter as tk
+from MancalaGame import Mancala
 
-# redefinir la methode * regarder la classe Mancala_etudiant 
+
 def event_puit(id):
     print(id)
-    print(id)
+    if id >= 0 and id <= 5:
+        Mancala.joueurDeplacement(id)
+        for p in puits:
+            puitGraines = Mancala.grille[p.label]
+            p.bouton.configure(text=puitGraines)
+        if Mancala.turn is False:
+            tk.root.after(2000, event_ordi)
+
+
+def event_ordi():
+    while Mancala.turn is False:
+        Mancala.ordiDeplacement()
+    for p in puits:
+        puitGraines = Mancala.grille[p.label]
+        p.bouton.configure(text=puitGraines)
+
 
 # Initialisation de Pygame
 pygame.init()
@@ -20,27 +37,27 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Mancala Game")
 
 # Image à afficher
-board = pygame.image.load("board.jpg")
+board = pygame.image.load("./images/board.jpg")
 board_rect = board.get_rect()
 board_rect.center = (width // 2, height // 2)
 
 # Créez des instances de la classe Puit avec les coordonnées appropriées
 
 puits = []
-puits.append(Puit("A", 256, 505, 57, 57, 4, "4.jpg"))
-puits.append(Puit("B", 314, 305, 57, 57, 4, "4.jpg"))
-puits.append(Puit("C", 372, 305, 57, 57, 4, "4.jpg"))
-puits.append(Puit("D", 476, 305, 57, 57, 4, "4.jpg"))
-puits.append(Puit("E", 534, 305, 57, 57, 4, "4.jpg"))
-puits.append(Puit("F", 592, 305, 57, 57, 4, "4.jpg"))
-puits.append(Puit("1", 654, 240, 55, 122, 0, "se.jpg"))
-puits.append(Puit("G", 592, 240, 57, 57, 4, "4.jpg"))
-puits.append(Puit("H", 534, 240, 57, 57, 4, "4.jpg"))
-puits.append(Puit("I", 476, 240, 57, 57, 4, "4.jpg"))
-puits.append(Puit("J", 372, 240,  57, 57, 4, "4.jpg"))
-puits.append(Puit("K", 314, 240,  57, 57, 4, "4.jpg"))
-puits.append(Puit("L", 256, 240,  57, 57, 4, "4.jpg"))
-puits.append(Puit("2", 195, 240,  55, 122, 0, "se.jpg"))
+puits.append(Puit("A", 256, 305, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("B", 314, 305, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("C", 372, 305, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("D", 476, 305, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("E", 534, 305, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("F", 592, 305, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("1", 654, 240, 55, 122, 0, "./images/se.jpg"))
+puits.append(Puit("G", 592, 240, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("H", 534, 240, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("I", 476, 240, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("J", 372, 240, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("K", 314, 240, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("L", 256, 240, 57, 57, 4, "./images/4.jpg"))
+puits.append(Puit("2", 195, 240, 55, 122, 0, "./images/se.jpg"))
 
 
 font = pygame.font.Font(None, 48)
@@ -65,16 +82,20 @@ text_joueur_rect.topright = (width - 100, 10)  # Aligné à droite
 variable_value_Joueur = 0
 variable_textJoueur = font.render(str(variable_value_Joueur), True, WHITE)
 variable_text_rectJoueur = variable_textJoueur.get_rect()
-variable_text_rectJoueur.topright = (width - 100, text_joueur_rect.bottom + 10)  # Aligné à droite
+variable_text_rectJoueur.topright = (
+    width - 100,
+    text_joueur_rect.bottom + 10,
+)  # Aligné à droite
 # Boucle principale
 running = True
 while running:
-    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:  # Vérifiez s'il s'agit d'un clic de souris (clic gauche)
+            if (
+                event.button == 1
+            ):  # Vérifiez s'il s'agit d'un clic de souris (clic gauche)
                 # Vérifiez si le clic est dans un puit
                 for index, puit in enumerate(puits):
                     if puit.rect.collidepoint(event.pos):
@@ -101,6 +122,4 @@ while running:
 
 pygame.quit()
 sys.exit()
-
-
 
