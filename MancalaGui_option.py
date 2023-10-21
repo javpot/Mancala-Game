@@ -2,6 +2,10 @@ import pygame
 import sys
 from MancalaGame import Mancala
 
+def switch_to_game():
+    pygame.quit()  # Fermez la fenêtre actuelle
+    from MancalaGui_game import run_game_interface  # Importez la fonction run_game_interface
+    run_game_interface()  # Exécutez la fonction pour afficher la fenêtre de mancalaGui_game
 
 # Initialisation de Pygame
 def run_option_interface():
@@ -49,6 +53,9 @@ def run_option_interface():
                         if button.collidepoint(event.pos):
                             print(f"Vous avez cliqué sur {text}.")
                             Mancala.textDifficulty = text
+                            switch_to_game()  # Appel de la fonction pour changer de fenêtre
+                            running = False  # Quittez la boucle de mancalaGui_option
+
 
         screen.fill(BLACK)  # Fond jaune
 
