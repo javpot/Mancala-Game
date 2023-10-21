@@ -5,6 +5,7 @@ from Puit import Puit
 # redefinir la methode * regarder la classe Mancala_etudiant 
 def event_puit(id):
     print(id)
+    print(id)
 
 # Initialisation de Pygame
 pygame.init()
