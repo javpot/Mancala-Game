@@ -1,5 +1,6 @@
 import pygame
 import sys
+import MancalaGui_game
 
 # Initialisation de Pygame
 def run_option_interface():
@@ -44,6 +45,7 @@ def run_option_interface():
                     for button, text in buttons:
                         if button.collidepoint(event.pos):
                             print(f"Vous avez cliqué sur {text}.")
+                            MancalaGui_game(text)
 
         screen.fill(BLACK)  # Fond jaune
 
