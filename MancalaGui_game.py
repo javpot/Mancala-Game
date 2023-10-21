@@ -25,20 +25,20 @@ board_rect.center = (width // 2, height // 2)
 
 # Créez des instances de la classe Puit avec les coordonnées appropriées
 puits = []
-puits.append(Puit("A", 256, 305, 100, 100, 4, "4.jpg"))
-puits.append(Puit("B", 314, 305, 100, 100, 4, "4.jpg"))
-puits.append(Puit("C", 372, 305, 100, 100, 4, "4.jpg"))
-puits.append(Puit("D", 476, 305, 100, 100, 4, "4.jpg"))
-puits.append(Puit("E", 534, 305, 100, 100, 4, "4.jpg"))
-puits.append(Puit("F", 592, 305, 100, 100, 4, "4.jpg"))
-puits.append(Puit("1", 195, 240, 100, 300, 0, "se.jpg"))
-puits.append(Puit("G", 256, 240, 100, 100, 4, "4.jpg"))
-puits.append(Puit("H", 314, 240, 100, 100, 4, "4.jpg"))
-puits.append(Puit("I", 372, 240, 100, 100, 4, "4.jpg"))
-puits.append(Puit("J", 476, 240, 100, 100, 4, "4.jpg"))
-puits.append(Puit("K", 534, 240, 100, 100, 4, "4.jpg"))
-puits.append(Puit("L", 592, 240, 100, 100, 4, "4.jpg"))
-puits.append(Puit("2", 654, 240, 100, 300, 0, "se.jpg"))
+puits.append(Puit("A", 256, 505, 57, 57, 4, "4.jpg"))
+puits.append(Puit("B", 314, 305, 57, 57, 4, "4.jpg"))
+puits.append(Puit("C", 372, 305, 57, 57, 4, "4.jpg"))
+puits.append(Puit("D", 476, 305, 57, 57, 4, "4.jpg"))
+puits.append(Puit("E", 534, 305, 57, 57, 4, "4.jpg"))
+puits.append(Puit("F", 592, 305, 57, 57, 4, "4.jpg"))
+puits.append(Puit("1", 195, 240, 55, 122, 0, "se.jpg"))
+puits.append(Puit("L", 256, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("K", 314, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("J", 372, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("I", 476, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("H", 534, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("G", 592, 240, 57, 57, 4, "4.jpg"))
+puits.append(Puit("2", 654, 240, 55, 122, 0, "se.jpg"))
 
 font = pygame.font.Font(None, 48)
 
@@ -76,6 +76,7 @@ while running:
                     if puit.rect.collidepoint(event.pos):
                         # Appelez la fonction event_puit avec l'index du puit ca c'est lorsque le joueur clique
                         event_puit(index)
+                        break
 
     screen.fill(BROWN)  # Fond brun
     screen.blit(board, board_rect)  # Affichage de l'image "board.jpg"
