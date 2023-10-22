@@ -9,9 +9,9 @@ class Mancala:
             "B": 4,
             "C": 4,
             "D": 4,
-            "E": 0,
+            "E": 4,
             "F": 4,
-            "1": 4,
+            "1": 0,
             "G": 4,
             "H": 4,
             "I": 4,
@@ -22,7 +22,7 @@ class Mancala:
         }
     )
 
-    textDifficulty = "Difficile"
+    textDifficulty = "None"
     turn = True
     list_puits = list(grille.keys())
 
@@ -72,9 +72,9 @@ class Mancala:
                 "B": 4,
                 "C": 4,
                 "D": 4,
-                "E": 0,
+                "E": 4,
                 "F": 4,
-                "1": 4,
+                "1": 0,
                 "G": 4,
                 "H": 4,
                 "I": 4,

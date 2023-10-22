@@ -1,12 +1,20 @@
 import pygame
 import sys
 from Puit import Puit
-import tkinter as tk
 from MancalaGame import Mancala
 
 
+def switch_to_options():
+    pygame.quit()  # Fermez la fenêtre actuelle
+    from MancalaGui_fin import (
+        run_finPartie_interface,
+    )  # Importez la fonction run_finPartie_interface
+
+    run_finPartie_interface()  # Exécutez la fonction pour afficher la fenêtre de mancalaGui_fin
+
+
 def event_puit(id):
-    print(id)
+    print("DB puit Joueur : ", id)
     if id >= 0 and id <= 5:
         Mancala.joueurDeplacement(id)
         for p in puits:
@@ -14,10 +22,11 @@ def event_puit(id):
             p.image = Mancala.dessinerPuit(puitGraines)
             if puits.index(p) == 6 or puits.index(p) == 13:
                 p.image = Mancala.dessinerPanier(puitGraines)
+        pygame.display.flip()
         print(Mancala.grille)
         if Mancala.turn is False:
+            # pygame.time.delay(2000)
             event_ordi()
-            # root.after(2000, event_ordi)
 
 
 def event_ordi():
@@ -28,6 +37,7 @@ def event_ordi():
         p.image = Mancala.dessinerPuit(puitGraines)
         if puits.index(p) == 6 or puits.index(p) == 13:
             p.image = Mancala.dessinerPanier(puitGraines)
+    pygame.display.flip()
 
 
 def send_text_to_game(text):
@@ -73,7 +83,7 @@ puits.append(Puit("2", 195, 240, 55, 122, 0, "./images/se.jpg"))
 font = pygame.font.Font(None, 48)
 
 # Texte "A.I"
-text_ai = font.render("A.I", True, WHITE)
+text_ai = font.render("Ordi", True, WHITE)
 text_ai_rect = text_ai.get_rect()
 text_ai_rect.topleft = (100, 10)
 
