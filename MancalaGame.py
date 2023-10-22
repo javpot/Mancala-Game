@@ -23,7 +23,7 @@ class Mancala:
     )
 
     textDifficulty = "None"
-    turn = True
+    turn = True  # changer a None quand on rajoute l'option de choisir qui commence
     list_puits = list(grille.keys())
 
     list_images_Puit = [
@@ -147,11 +147,9 @@ class Mancala:
             panierOrdi = list_puits[13] + sumOrdi
             panierJoueur = list_puits[6] + sumJoueur
             if panierJoueur > panierOrdi:
-                return "Joueur Gagner"
+                return True  # Joueur Gagnant
             else:
-                return "Ordi Gagner"
-        else:
-            return "Partie pas encore termine"
+                return False  # Ordi Gagnant
 
     def jouerEncore(id, idPanier):
         lettrePuit = Mancala.list_puits[id]
