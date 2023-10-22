@@ -9,21 +9,21 @@ class Mancala:
             "B": 4,
             "C": 4,
             "D": 4,
-            "E": 4,
+            "E": 0,
             "F": 4,
-            "2": 0,
-            "L": 4,
-            "K": 4,
-            "J": 4,
-            "I": 4,
-            "H": 4,
+            "1": 4,
             "G": 4,
-            "1": 0,
+            "H": 4,
+            "I": 4,
+            "J": 4,
+            "K": 4,
+            "L": 4,
+            "2": 0,
         }
     )
 
     textDifficulty = "Difficile"
-    turn = None
+    turn = True
     list_puits = list(grille.keys())
 
     list_images_Puit = [
@@ -43,33 +43,27 @@ class Mancala:
         "./images/s5.jpg",
     ]
     images_Puit = {
-        "0": list_images_Puit[0],
-        "1": list_images_Puit[1],
-        "2": list_images_Puit[2],
-        "3": list_images_Puit[3],
-        "4": list_images_Puit[4],
-        "5": list_images_Puit[5],
+        0: list_images_Puit[0],
+        1: list_images_Puit[1],
+        2: list_images_Puit[2],
+        3: list_images_Puit[3],
+        4: list_images_Puit[4],
+        5: list_images_Puit[5],
     }
     images_Panier = {
-        "0": list_images_Panier[0],
-        "1": list_images_Panier[1],
-        "2": list_images_Panier[2],
-        "3": list_images_Panier[3],
-        "4": list_images_Panier[4],
-        "5": list_images_Panier[5],
+        0: list_images_Panier[0],
+        1: list_images_Panier[1],
+        2: list_images_Panier[2],
+        3: list_images_Panier[3],
+        4: list_images_Panier[4],
+        5: list_images_Panier[5],
     }
 
-    def dessinerPuit(nbgraines):
-      # return Mancala.images_Puit.get(nbgraines, "./images/m.jpg")
-        if(nbgraines == 0):
-          return "/images/e.jpg"  
-        
-        elif(nbgraines > 5):
-            return "/images/m.jpg"
-        else:
-           return f"/images/{nbgraines}.jpg"
+    def dessinerPuit(nbgraines: int):
+        return Mancala.images_Puit.get(nbgraines, "./images/m.jpg")
+
     def dessinerPanier(nbgraines):
-       return Mancala.images_Panier.get(nbgraines, "./images/sm.jpg")
+        return Mancala.images_Panier.get(nbgraines, "./images/sm.jpg")
 
     def nouvelleGrille():
         nvGrille = dict(
@@ -78,16 +72,16 @@ class Mancala:
                 "B": 4,
                 "C": 4,
                 "D": 4,
-                "E": 4,
+                "E": 0,
                 "F": 4,
-                "2": 0,
-                "L": 4,
-                "K": 4,
-                "J": 4,
-                "I": 4,
-                "H": 4,
+                "1": 4,
                 "G": 4,
-                "1": 0,
+                "H": 4,
+                "I": 4,
+                "J": 4,
+                "K": 4,
+                "L": 4,
+                "2": 0,
             }
         )
         Mancala.grille = nvGrille
@@ -122,13 +116,13 @@ class Mancala:
 
     def joueurDeplacement(id):
         if Mancala.turn is True:
-            if Mancala.listPuits[id] in "ABCDEF":
-                Mancala.deplacer(id, Mancala.listPuits, 6)
+            if Mancala.list_puits[id] in "ABCDEF":
+                Mancala.deplacer(id, Mancala.list_puits, 6)
                 if Mancala.jouerEncore(id, 6):
                     Mancala.turn = True
                 else:
                     Mancala.turn = False
-                Mancala.grille[Mancala.listPuits[id]] = 0
+                Mancala.grille[Mancala.list_puits[id]] = 0
                 Mancala.verifierGagnant()
 
     def ordiDeplacement():
@@ -137,21 +131,21 @@ class Mancala:
             Mancala.verifierGagnant()
 
     def verifierPartieTerminer():
-        listPuits = list(Mancala.grille.values())
-        sumOrdi = sum(listPuits[7:13])
-        sumJoueur = sum(listPuits[0:6])
+        list_puits = list(Mancala.grille.values())
+        sumOrdi = sum(list_puits[7:13])
+        sumJoueur = sum(list_puits[0:6])
         if sumOrdi == 0 or sumJoueur == 0:
             return True
         else:
             return False
 
     def verifierGagnant():
-        listPuits = list(Mancala.grille.values())
+        list_puits = list(Mancala.grille.values())
         if Mancala.verifierPartieTerminer():
-            sumOrdi = sum(listPuits[7:13])
-            sumJoueur = sum(listPuits[0:6])
-            panierOrdi = listPuits[13] + sumOrdi
-            panierJoueur = listPuits[6] + sumJoueur
+            sumOrdi = sum(list_puits[7:13])
+            sumJoueur = sum(list_puits[0:6])
+            panierOrdi = list_puits[13] + sumOrdi
+            panierJoueur = list_puits[6] + sumJoueur
             if panierJoueur > panierOrdi:
                 return "Joueur Gagner"
             else:
@@ -160,7 +154,7 @@ class Mancala:
             return "Partie pas encore termine"
 
     def jouerEncore(id, idPanier):
-        lettrePuit = Mancala.listPuits[id]
+        lettrePuit = Mancala.list_puits[id]
         nbGrainesPuit = Mancala.grille[lettrePuit] - 1
         if (id + nbGrainesPuit) == idPanier:
             return True
@@ -168,13 +162,13 @@ class Mancala:
             return False
 
     def volerGraines(id, idPanier):
-        lettrePuit = Mancala.listPuits[id]
-        panier = Mancala.listPuits[idPanier]
+        lettrePuit = Mancala.list_puits[id]
+        panier = Mancala.list_puits[idPanier]
         nbGrainesPuit = Mancala.grille[lettrePuit] - 1
 
         dernierPuit = id + nbGrainesPuit
         if dernierPuit > 13:
-            num = dernierPuit - len(Mancala.listPuits)
+            num = dernierPuit - len(Mancala.list_puits)
             indexDernierP = num - 1
             if indexDernierP == -1:
                 indexDernierP = 0
@@ -183,12 +177,12 @@ class Mancala:
         else:
             indexDernierP = dernierPuit
 
-        lettreDernierP = Mancala.listPuits[indexDernierP]
+        lettreDernierP = Mancala.list_puits[indexDernierP]
         nbGrainesDernierP = Mancala.grille[lettreDernierP]
 
         if nbGrainesDernierP == 1:
             indexPuitOpp = Mancala.puitsOpp[indexDernierP]
-            lettrePuitOpp = Mancala.listPuits[indexPuitOpp]
+            lettrePuitOpp = Mancala.list_puits[indexPuitOpp]
             nbGPuitOpp = Mancala.grille[lettrePuitOpp]
             if nbGPuitOpp > 0:
                 Mancala.grille[lettrePuitOpp] = 0
@@ -227,8 +221,10 @@ class Agent:
     def randomAgent(grille):
         if Agent.puits_valides:
             choix_puit = random.choice(Agent.puits_valides)
-            Mancala.deplacer(Mancala.listpuits.index(choix_puit), Mancala.listpuits, 13)
-            if Mancala.jouerEncore(Mancala.listpuits.index(choix_puit), 13):
+            Mancala.deplacer(
+                Mancala.list_puits.index(choix_puit), Mancala.list_puits, 13
+            )
+            if Mancala.jouerEncore(Mancala.list_puits.index(choix_puit), 13):
                 Mancala.turn = False
             else:
                 Mancala.turn = True
@@ -250,8 +246,8 @@ class Agent:
             choix_puit = random.choice(choix_max)
         else:
             choix_puit = Agent.randomAgent(Mancala.grille)
-        Mancala.deplacer(Mancala.listpuits.index(choix_puit), Mancala.listpuits, 13)
-        if Mancala.jouerEncore(Mancala.listpuits.index(choix_puit), 13):
+        Mancala.deplacer(Mancala.list_puits.index(choix_puit), Mancala.list_puits, 13)
+        if Mancala.jouerEncore(Mancala.list_puits.index(choix_puit), 13):
             Mancala.turn = False
         else:
             Mancala.turn = True
@@ -276,8 +272,10 @@ class Agent:
                 best_move = move
 
         if best_move is not None:
-            Mancala.deplacer(Mancala.listpuits.index(best_move), Mancala.listpuits, 13)
-            if Mancala.jouerEncore(Mancala.listpuits.index(best_move), 13):
+            Mancala.deplacer(
+                Mancala.list_puits.index(best_move), Mancala.list_puits, 13
+            )
+            if Mancala.jouerEncore(Mancala.list_puits.index(best_move), 13):
                 Mancala.turn = False
             else:
                 Mancala.turn = True
