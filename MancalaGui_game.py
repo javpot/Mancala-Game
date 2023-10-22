@@ -7,21 +7,8 @@ from MancalaGame import Mancala
 
 def event_puit(id):
     print(id)
-    if id >= 0 and id <= 5:
-        Mancala.joueurDeplacement(id)
-        for p in puits:
-            puitGraines = Mancala.grille[p.label]
-            p.bouton.configure(text=puitGraines)
-        if Mancala.turn is False:
-            tk.root.after(2000, event_ordi)
-
-
-def event_ordi():
-    while Mancala.turn is False:
-        Mancala.ordiDeplacement()
-    for p in puits:
-        puitGraines = Mancala.grille[p.label]
-        p.bouton.configure(text=puitGraines)
+    
+    
 
 
 def send_text_to_game(text):
@@ -64,7 +51,7 @@ def run_game_interface():
     puits.append(Puit("L", 256, 240, 57, 57, 4, "./images/4.jpg"))
     puits.append(Puit("2", 195, 240, 55, 122, 0, "./images/se.jpg"))
 
-
+    
     font = pygame.font.Font(None, 48)
 
     # Texte "A.I"
