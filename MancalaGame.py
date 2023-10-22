@@ -1,5 +1,4 @@
 import random
-import tkinter as tk
 
 
 class Mancala:
@@ -147,9 +146,11 @@ class Mancala:
             panierOrdi = list_puits[13] + sumOrdi
             panierJoueur = list_puits[6] + sumJoueur
             if panierJoueur > panierOrdi:
-                return True  # Joueur Gagnant
+                return "Joueur Gagner"
             else:
-                return False  # Ordi Gagnant
+                return "Ordi Gagner"
+        else:
+            return "Partie pas encore termine"
 
     def jouerEncore(id, idPanier):
         lettrePuit = Mancala.list_puits[id]
