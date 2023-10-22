@@ -1,7 +1,7 @@
 import pygame
 import sys
 from Puit import Puit
-import tkinter as Tk
+import tkinter as tk
 from MancalaGame import Mancala
 
 
