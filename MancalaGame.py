@@ -60,10 +60,16 @@ class Mancala:
     }
 
     def dessinerPuit(nbgraines):
-        Mancala.images_Puit.get(nbgraines, "./images/m.jpg")
-
+      # return Mancala.images_Puit.get(nbgraines, "./images/m.jpg")
+        if(nbgraines == 0):
+          return "/images/e.jpg"  
+        
+        elif(nbgraines > 5):
+            return "/images/m.jpg"
+        else:
+           return f"/images/{nbgraines}.jpg"
     def dessinerPanier(nbgraines):
-        Mancala.images_Panier.get(nbgraines, "./images/sm.jpg")
+       return Mancala.images_Panier.get(nbgraines, "./images/sm.jpg")
 
     def nouvelleGrille():
         nvGrille = dict(

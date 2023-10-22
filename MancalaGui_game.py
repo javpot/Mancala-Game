@@ -13,7 +13,12 @@ def event_puit(id):
         Mancala.joueurDeplacement(id)
         for p in puits:
             puitGraines = Mancala.grille[p.label]
-            p.image = Mancala.dessinerPuit(puitGraines)
+            
+           # p.image = Mancala.dessinerPuit(puitGraines)
+            
+            
+            print(puitGraines)
+        print(Mancala.grille)
         if Mancala.turn is False:
             tk.root.after(2000, event_ordi)
 
@@ -23,7 +28,7 @@ def event_ordi():
         Mancala.ordiDeplacement()
     for p in puits:
         puitGraines = Mancala.grille[p.label]
-        p.image = Mancala.dessinerPuit(puitGraines)
+        #p.image = Mancala.dessinerPuit(puitGraines)
 
 
 def send_text_to_game(text):
