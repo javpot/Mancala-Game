@@ -5,11 +5,7 @@ from MancalaGame import Mancala
 
 def switch_to_options():
     pygame.quit()  # Fermez la fenêtre actuelle
-    from MancalaGui_option import (
-        run_option_interface,
-    )  # Importez la fonction run_option_interface
-
-    run_option_interface()  # Exécutez la fonction pour afficher la fenêtre de mancalaGui_option
+    import MancalaGui_option
 
 
 # Initialisation de Pygame

@@ -5,11 +5,7 @@ from MancalaGame import Mancala
 
 def switch_to_game():
     pygame.quit()  # Fermez la fenêtre actuelle
-    from MancalaGui_game import (
-        run_game_interface,
-    )  # Importez la fonction run_game_interface
-
-    run_game_interface()  # Exécutez la fonction pour afficher la fenêtre de mancalaGui_game
+    import MancalaGui_game  # Importez la fonction run_game_interface
 
 
 # Function to wrap text within a given width

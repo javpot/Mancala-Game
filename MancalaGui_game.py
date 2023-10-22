@@ -4,13 +4,9 @@ from Puit import Puit
 from MancalaGame import Mancala
 
 
-def switch_to_options():
+def switch_to_finPartie():
     pygame.quit()  # Fermez la fenêtre actuelle
-    from MancalaGui_fin import (
-        run_finPartie_interface,
-    )  # Importez la fonction run_finPartie_interface
-
-    run_finPartie_interface()  # Exécutez la fonction pour afficher la fenêtre de mancalaGui_fin
+    import MancalaGui_fin
 
 
 def event_puit(id):
