@@ -30,6 +30,10 @@ titre = font.render(Mancala.verifierGagnant(), True, WHITE)
 titre_rect = titre.get_rect()
 titre_rect.center = (width // 2, 25)
 
+button = pygame.Rect(0, 0, 200, 50)  # Rectangle pour le bouton
+button.center = (button_x, button_y)
+
+
 # Boucle principale
 running = True
 while running:
