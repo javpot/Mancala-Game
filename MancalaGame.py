@@ -146,9 +146,9 @@ class Mancala:
             panierOrdi = list_puits[13] + sumOrdi
             panierJoueur = list_puits[6] + sumJoueur
             if panierJoueur > panierOrdi:
-                return "Joueur Gagner"
+                return f"Joueur Gagner avec {panierJoueur} points"
             else:
-                return "Ordi Gagner"
+                return f"Ordi Gagner avec {panierOrdi} points"
         else:
             return "Partie pas encore termine"
 

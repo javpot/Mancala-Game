@@ -40,5 +40,12 @@ while running:
 
     pygame.display.flip()
 
+# texte Gagnant
+titre = font.render(Mancala.verifierGagnant(), True, BLACK)
+titre_rect = titre.get_rect()
+titre_rect.center = (width // 2, 25)
+
+screen.blit(titre, titre_rect)
+
 pygame.quit()
 sys.exit()
