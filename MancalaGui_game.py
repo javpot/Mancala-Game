@@ -26,7 +26,9 @@ def event_puit(id):
 
 def event_ordi():
     while Mancala.turn is False:
+        afficherPlayerTurn()
         Mancala.ordiDeplacement()
+    afficherPlayerTurn()
     for p in puits:
         puitGraines = Mancala.grille[p.label]
         p.image = Mancala.dessinerPuit(puitGraines)
@@ -37,6 +39,23 @@ def event_ordi():
 
 def send_text_to_game(text):
     Mancala.textDifficulty = text
+
+
+def getPlayerTurnStr():
+    if Mancala.turn is True:
+        return "Votre Turn"
+    elif Mancala.turn is False:
+        return "Turn a Ordi"
+    else:
+        return "Tour a personne"
+
+
+def afficherPlayerTurn():
+    # texte player turn
+    player_turn_label = font.render(getPlayerTurnStr(), True, BLACK)
+    player_turn_label_rect = player_turn_label.get_rect()
+    player_turn_label_rect.center = (width // 2, 200)
+    screen.blit(player_turn_label, player_turn_label_rect)
 
 
 # Initialisation de Pygame
@@ -129,7 +148,7 @@ text_ai_rect = text_ai.get_rect()
 text_ai_rect.topleft = (100, 10)
 
 # Variable AI
-variable_value_AI = Mancala.grille["2"]
+variable_value_AI = 0
 variable_textAI = font.render(str(variable_value_AI), True, WHITE)
 variable_text_rectAI = variable_textAI.get_rect()
 variable_text_rectAI.topleft = (100, text_ai_rect.bottom + 10)
@@ -140,7 +159,7 @@ text_joueur_rect = text_joueur.get_rect()
 text_joueur_rect.topright = (width - 100, 10)  # Aligné à droite
 
 # Variable Joueur
-variable_value_Joueur = Mancala.grille["1"]
+variable_value_Joueur = 0
 variable_textJoueur = font.render(str(variable_value_Joueur), True, WHITE)
 variable_text_rectJoueur = variable_textJoueur.get_rect()
 variable_text_rectJoueur.topright = (
@@ -196,6 +215,7 @@ while running:
     screen.blit(text_joueur, text_joueur_rect)
     screen.blit(variable_textJoueur, variable_text_rectJoueur)
     screen.blit(qui_commence_label, qui_commence_rect)
+    afficherPlayerTurn()
 
     pygame.display.flip()
 

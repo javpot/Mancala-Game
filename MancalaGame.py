@@ -250,7 +250,7 @@ class Agent:
         if choix_max:
             choix_puit = random.choice(choix_max)
         else:
-            choix_puit = Agent.randomAgent(Mancala.grille)
+            choix_puit = random.choice(Agent.puits_valides)
         Mancala.deplacer(Mancala.list_puits.index(choix_puit), Mancala.list_puits, 13)
         if Mancala.jouerEncore(Mancala.list_puits.index(choix_puit), 13):
             Mancala.turn = False
