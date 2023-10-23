@@ -23,10 +23,11 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Ecran fin de partie")
 
 # Polices de texte
+font_resultat = pygame.font.Font(None, 36)
 font = pygame.font.Font(None, 28)
 
 # texte Gagnant
-titre = font.render(Mancala.verifierGagnant(), True, WHITE)
+titre = font_resultat.render(Mancala.verifierGagnant(), True, WHITE)
 titre_rect = titre.get_rect()
 titre_rect.center = (width // 2, 25)
 

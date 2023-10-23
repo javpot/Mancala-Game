@@ -1,6 +1,10 @@
 import random
 
 
+def switch_to_fin():
+    import MancalaGui_fin
+
+
 class Mancala:
     grille = dict(
         {
@@ -146,8 +150,10 @@ class Mancala:
             panierOrdi = list_puits[13] + sumOrdi
             panierJoueur = list_puits[6] + sumJoueur
             if panierJoueur > panierOrdi:
+                switch_to_fin()
                 return f"Joueur Gagner avec {panierJoueur} points"
             else:
+                switch_to_fin()
                 return f"Ordi Gagner avec {panierOrdi} points"
         else:
             return "Partie pas encore termine"
