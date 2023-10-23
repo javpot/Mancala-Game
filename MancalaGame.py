@@ -285,6 +285,8 @@ class Agent:
             else:
                 Mancala.turn = True
             Mancala.grille[best_move] = 0
+        else:
+            Agent.randomAgent(Mancala.grille)
 
     def minimax(move, depth):
         if depth == 3:  # Ajustez la profondeur de recherche ici
