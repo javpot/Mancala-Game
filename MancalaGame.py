@@ -22,7 +22,7 @@ class Mancala:
     )
 
     textDifficulty = "None"
-    turn = True  # changer a None quand on rajoute l'option de choisir qui commence
+    turn = None
     list_puits = list(grille.keys())
 
     list_images_Puit = [

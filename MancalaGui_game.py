@@ -21,7 +21,6 @@ def event_puit(id):
         pygame.display.flip()
         print(Mancala.grille)
         if Mancala.turn is False:
-            # pygame.time.delay(2000)
             event_ordi()
 
 
@@ -47,6 +46,7 @@ pygame.init()
 # Couleurs
 BROWN = (139, 69, 19)  # Couleur brun
 WHITE = (255, 255, 255)  # Couleur blanche
+BLACK = (0, 0, 0)  # Couleur noir
 
 # Paramètres de la fenêtre
 width, height = 900, 600
@@ -57,6 +57,40 @@ pygame.display.set_caption("Mancala Game")
 board = pygame.image.load("./images/board.jpg")
 board_rect = board.get_rect()
 board_rect.center = (width // 2, height // 2)
+
+# Liste des textes des boutons
+button_texts = ["Ordi", "Joueur"]
+
+# Position de départ pour les boutons
+button_x = width // 2 - 112.5
+button_y = height - 100  # Centre les boutons verticalement
+
+# Création des boutons interactifs
+buttons = []
+for text in button_texts:
+    button = pygame.Rect(0, 0, 200, 50)  # Rectangle pour le bouton
+    button.center = (button_x, button_y)
+    buttons.append((button, text))
+    button_x += 225  # Espacement vertical
+
+ordi_button_info = buttons[0]
+joueur_button_info = buttons[1]
+
+ordi_button_rect, ordi_label = ordi_button_info
+joueur_button_rect, joueur_label = joueur_button_info
+
+obj_ordi_button_rect = pygame.Rect(
+    ordi_button_rect.left,
+    ordi_button_rect.top,
+    ordi_button_rect.width,
+    ordi_button_rect.height,
+)
+obj_joueur_button_rect = pygame.Rect(
+    joueur_button_rect.left,
+    joueur_button_rect.top,
+    joueur_button_rect.width,
+    joueur_button_rect.height,
+)
 
 # Créez des instances de la classe Puit avec les coordonnées appropriées
 
@@ -76,7 +110,18 @@ puits.append(Puit("K", 314, 240, 57, 57, 4, "./images/4.jpg"))
 puits.append(Puit("L", 256, 240, 57, 57, 4, "./images/4.jpg"))
 puits.append(Puit("2", 195, 240, 55, 122, 0, "./images/se.jpg"))
 
-font = pygame.font.Font(None, 48)
+font = pygame.font.Font(None, 44)
+font_titre = pygame.font.Font(None, 60)
+
+# Label for "Qui commence?"
+qui_commence_label = font.render("Qui commence?", True, WHITE)
+qui_commence_rect = qui_commence_label.get_rect()
+qui_commence_rect.center = (width // 2, height - 150)
+
+# texte titre jeu
+titre = font_titre.render("Mancala", True, BLACK)
+titre_rect = titre.get_rect()
+titre_rect.center = (width // 2, 25)
 
 # Texte "A.I"
 text_ai = font.render("Ordi", True, WHITE)
@@ -84,7 +129,7 @@ text_ai_rect = text_ai.get_rect()
 text_ai_rect.topleft = (100, 10)
 
 # Variable AI
-variable_value_AI = 0
+variable_value_AI = Mancala.grille["2"]
 variable_textAI = font.render(str(variable_value_AI), True, WHITE)
 variable_text_rectAI = variable_textAI.get_rect()
 variable_text_rectAI.topleft = (100, text_ai_rect.bottom + 10)
@@ -95,7 +140,7 @@ text_joueur_rect = text_joueur.get_rect()
 text_joueur_rect.topright = (width - 100, 10)  # Aligné à droite
 
 # Variable Joueur
-variable_value_Joueur = 0
+variable_value_Joueur = Mancala.grille["1"]
 variable_textJoueur = font.render(str(variable_value_Joueur), True, WHITE)
 variable_text_rectJoueur = variable_textJoueur.get_rect()
 variable_text_rectJoueur.topright = (
@@ -118,6 +163,15 @@ while running:
                         # Appelez la fonction event_puit avec l'index du puit ca c'est lorsque le joueur clique
                         event_puit(index)
                         break
+                if obj_ordi_button_rect.collidepoint(event.pos):
+                    # "Ordi" button clicked
+                    print("Ordi button clicked")
+                    Mancala.turn = False
+                    event_ordi()
+
+                if obj_joueur_button_rect.collidepoint(event.pos):
+                    # "Joueur" button clicked
+                    Mancala.turn = True
 
     screen.fill(BROWN)  # Fond brun
     screen.blit(board, board_rect)  # Affichage de l'image "board.jpg"
@@ -128,11 +182,20 @@ while running:
         puit_image = pygame.image.load(puit.image)
         screen.blit(puit_image, puit_rect)
 
+    # Affichage des boutons
+    for button, text in buttons:
+        pygame.draw.rect(screen, WHITE, button)
+        button_surface = font.render(text, True, BLACK)
+        button_rect = button_surface.get_rect(center=button.center)
+        screen.blit(button_surface, button_rect)
+
     # Affichez le texte "A.I" et la variable
+    screen.blit(titre, titre_rect)
     screen.blit(text_ai, text_ai_rect)
     screen.blit(variable_textAI, variable_text_rectAI)
     screen.blit(text_joueur, text_joueur_rect)
     screen.blit(variable_textJoueur, variable_text_rectJoueur)
+    screen.blit(qui_commence_label, qui_commence_rect)
 
     pygame.display.flip()
 
