@@ -84,7 +84,7 @@ while running:
                         print(f"Vous avez cliqué sur {text}.")
                         Mancala.textDifficulty = text
                         switch_to_game()  # Appel de la fonction pour changer de fenêtre
-                        running = False  # Quittez la boucle de mancalaGui_option
+                        running = False
 
     screen.fill(BLACK)  # Fond Noir
 

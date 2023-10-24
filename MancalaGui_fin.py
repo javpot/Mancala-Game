@@ -4,7 +4,6 @@ from MancalaGame import Mancala
 
 
 def switch_to_options():
-    pygame.quit()  # Fermez la fenêtre actuelle
     import MancalaGui_option
 
 

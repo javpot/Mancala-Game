@@ -38,13 +38,8 @@ def event_ordi():
     pygame.display.flip()
 
 
-def send_text_to_game(text):
-    Mancala.textDifficulty = text
-
-
 def isGameDone():
     if Mancala.verifierPartieTerminer() is True:
-        pygame.quit()
         switch_to_finPartie()
     else:
         return
