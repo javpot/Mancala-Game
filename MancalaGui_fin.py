@@ -82,6 +82,7 @@ while running:
                 elif oui_button_rect.collidepoint(event.pos):
                     Mancala.nouvelleGrille()
                     switch_to_options()  # Appel de la fonction pour changer de fenêtre
+                    running = False
 
     screen.fill(BLACK)  # Fond Noir
 

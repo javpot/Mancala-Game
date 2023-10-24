@@ -5,7 +5,6 @@ from MancalaGame import Mancala
 
 
 def switch_to_finPartie():
-    pygame.quit()  # Fermez la fenêtre actuelle
     import MancalaGui_fin
 
 
@@ -13,6 +12,7 @@ def event_puit(id):
     print("DB puit Joueur : ", id)
     if id >= 0 and id <= 5:
         Mancala.joueurDeplacement(id)
+        isGameDone()
         for p in puits:
             puitGraines = Mancala.grille[p.label]
             p.image = Mancala.dessinerPuit(puitGraines)
@@ -28,6 +28,7 @@ def event_ordi():
     while Mancala.turn is False:
         afficherPlayerTurn()
         Mancala.ordiDeplacement()
+        isGameDone()
     afficherPlayerTurn()
     for p in puits:
         puitGraines = Mancala.grille[p.label]
@@ -39,6 +40,14 @@ def event_ordi():
 
 def send_text_to_game(text):
     Mancala.textDifficulty = text
+
+
+def isGameDone():
+    if Mancala.verifierPartieTerminer() is True:
+        pygame.quit()
+        switch_to_finPartie()
+    else:
+        return
 
 
 def getPlayerTurnStr():
