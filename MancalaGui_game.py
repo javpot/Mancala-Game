@@ -145,7 +145,7 @@ qui_commence_rect.center = (width // 2, height - 150)
 # texte titre jeu
 titre = font_titre.render("Mancala", True, BLACK)
 titre_rect = titre.get_rect()
-titre_rect.center = (width // 2, 25)
+titre_rect.center = (width // 2, 35)
 
 # Boucle principale
 running = True
