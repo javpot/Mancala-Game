@@ -134,7 +134,8 @@ puits.append(Puit("L", 256, 240, 57, 57, 4, "./images/4.jpg"))
 puits.append(Puit("2", 195, 240, 55, 122, 0, "./images/se.jpg"))
 
 font = pygame.font.Font(None, 44)
-font_titre = pygame.font.Font(None, 60)
+font_label = pygame.font.Font(None, 36)
+font_titre = pygame.font.Font(None, 66)
 
 # Label for "Qui commence?"
 qui_commence_label = font.render("Qui commence?", True, WHITE)
@@ -146,30 +147,6 @@ titre = font_titre.render("Mancala", True, BLACK)
 titre_rect = titre.get_rect()
 titre_rect.center = (width // 2, 25)
 
-# Texte "A.I"
-text_ai = font.render("Ordi", True, WHITE)
-text_ai_rect = text_ai.get_rect()
-text_ai_rect.topleft = (100, 10)
-
-# Variable AI
-variable_value_AI = 0
-variable_textAI = font.render(str(variable_value_AI), True, WHITE)
-variable_text_rectAI = variable_textAI.get_rect()
-variable_text_rectAI.topleft = (100, text_ai_rect.bottom + 10)
-
-# Texte "Joueur"
-text_joueur = font.render("Joueur", True, WHITE)
-text_joueur_rect = text_joueur.get_rect()
-text_joueur_rect.topright = (width - 100, 10)  # Aligné à droite
-
-# Variable Joueur
-variable_value_Joueur = 0
-variable_textJoueur = font.render(str(variable_value_Joueur), True, WHITE)
-variable_text_rectJoueur = variable_textJoueur.get_rect()
-variable_text_rectJoueur.topright = (
-    width - 100,
-    text_joueur_rect.bottom + 10,
-)  # Aligné à droite
 # Boucle principale
 running = True
 while running:
@@ -190,11 +167,15 @@ while running:
                     # "Ordi" button clicked
                     print("Ordi button clicked")
                     Mancala.turn = False
+                    obj_ordi_button_rect.center = (-100, -100)
+                    qui_commence_rect.center = (-100, -100)
                     event_ordi()
 
                 if obj_joueur_button_rect.collidepoint(event.pos):
                     # "Joueur" button clicked
                     Mancala.turn = True
+                    obj_joueur_button_rect.center = (-100, -100)
+                    qui_commence_rect.center = (-100, -100)
 
     screen.fill(BROWN)  # Fond brun
     screen.blit(board, board_rect)  # Affichage de l'image "board.jpg"
@@ -205,6 +186,17 @@ while running:
         puit_image = pygame.image.load(puit.image)
         screen.blit(puit_image, puit_rect)
 
+        # Create labels for each puit
+        puitGraines = Mancala.grille[puit.label]
+        labels_joueur = [
+            font_label.render(f"{puitGraines}", True, WHITE) for i in range(6)
+        ]
+        labels_joueur_rect = pygame.Rect(
+            puit.x + 15, puit.y, puit.width // 2, puit.height // 2
+        )
+        for label in labels_joueur:
+            screen.blit(label, labels_joueur_rect)
+
     # Affichage des boutons
     for button, text in buttons:
         pygame.draw.rect(screen, WHITE, button)
@@ -214,10 +206,6 @@ while running:
 
     # Affichez le texte "A.I" et la variable
     screen.blit(titre, titre_rect)
-    screen.blit(text_ai, text_ai_rect)
-    screen.blit(variable_textAI, variable_text_rectAI)
-    screen.blit(text_joueur, text_joueur_rect)
-    screen.blit(variable_textJoueur, variable_text_rectJoueur)
     screen.blit(qui_commence_label, qui_commence_rect)
     afficherPlayerTurn()
 

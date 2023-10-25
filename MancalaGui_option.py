@@ -38,7 +38,7 @@ pygame.init()
 YELLOW = (255, 255, 0)
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
-
+GREY = (128, 128, 128)
 # Paramètres de la fenêtre
 width, height = 900, 600
 screen = pygame.display.set_mode((width, height))
@@ -96,7 +96,7 @@ while running:
 
     # Affichage des boutons
     for button, text in buttons:
-        pygame.draw.rect(screen, RED, button)
+        pygame.draw.rect(screen, GREY, button)
         button_surface = font.render(text, True, BLACK)
         button_rect = button_surface.get_rect(center=button.center)
         screen.blit(button_surface, button_rect)
